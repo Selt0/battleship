@@ -56,4 +56,16 @@ class Board
   def reveal
     print_grid(grid)
   end
+
+  def attack(pos)
+    if self[pos] == :S
+      puts "HIT!"
+      self[pos] = :X
+      return true
+    else
+      puts "MISS!"
+      self[pos] = :M
+      false
+    end
+  end
 end
