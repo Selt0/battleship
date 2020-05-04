@@ -187,29 +187,30 @@ describe "Board" do
       end
     end
 
-    describe "::print_grid" do
+    describe "#print_grid" do
       it "should accept a 2D array representing a grid as an arg" do
-        Board.print_grid([[:S, :N],[:X, :S]])
+        board.print_grid([[:S, :N],[:X, :S]])
       end
 
       it "should print each row of @grid so every element in a row is separated with a space" do
-        expect { Board.print_grid([[:S, :N],[:X, :S]]) }.to output(/S N\nX S\n/).to_stdout
+        board = Board.new(2)
+        expect { board.print_grid([[:S, :N],[:X, :S]]) }.to output(/  0 1\n0 S N\n1 X S\n/).to_stdout
       end
     end
 
-    describe "#cheat" do
+    describe "#reveal" do
       it "should call Board::print_grid with @grid as an arg" do
         board.place_random_ships
         grid = board.instance_variable_get(:@grid)
-        expect(Board).to receive(:print_grid).with(grid)
-        board.cheat
+        expect(board).to receive(:print_grid).with(grid)
+        board.reveal
       end
     end
 
     describe "#print" do
-      it "should call Board::print_grid with the #hidden_ships_grid as an arg" do
+      it "should call #print_grid with the #hidden_ships_grid as an arg" do
         board.place_random_ships
-        expect(Board).to receive(:print_grid).with(board.hidden_ships_grid)
+        expect(board).to receive(:print_grid).with(board.hidden_ships_grid)
         board.print
       end
     end
