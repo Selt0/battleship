@@ -8,7 +8,7 @@ class Battleship
   def initialize(size)
     @board = Board.new(size)
     @player = Player.new
-    @remaining_guesses = board.size ** 2 / 2
+    @remaining_misses = board.size / 2
   end
 
   def start_game
@@ -22,7 +22,7 @@ class Battleship
   end
 
   def lose?
-   if @remaining_guesses == 0
+   if @remaining_misses <= 0
     puts "You lose!"
     return true
    end
@@ -30,8 +30,8 @@ class Battleship
   end
 
   def win?
-    if board.ships == 0
-      puts 'You Win!'
+    if board.num_ships == 0
+      puts 'You win!'
       return true
     end
     false
@@ -39,9 +39,9 @@ class Battleship
 
   def turn
     if !board.attack(player.get_move)
-      @remaining_guesses -= 1
+      @remaining_misses -= 1
     end
     board.print
-    puts "Remaining chances: #{@remaining_guesses}"
+    puts "Remaining chances: #{@remaining_misses}"
   end
 end
