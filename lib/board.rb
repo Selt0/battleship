@@ -3,9 +3,10 @@ class Board
   attr_reader :grid, :size, :ships
  
   def initialize(num)
-    @grid = Array.new(num) { Array.new(num, '_')}
-    @ships = num * num * 0.25
-    @size = num
+    @grid = Array.new(num) { Array.new(num, :N)}
+    @size = num * num
+    @ships = size * 0.25
+    
   end
 
   def [](pos)
@@ -67,5 +68,9 @@ class Board
       self[pos] = :M
       false
     end
+  end
+  
+  def num_ships
+    grid.flatten.count{ |ele| ele == :S}
   end
 end
